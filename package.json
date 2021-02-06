@@ -12,6 +12,8 @@
     "@quasar/extras": "^1.0.0",
     "axios": "^0.18.1",
     "core-js": "^3.6.5",
+    "crc-32": "^1.2.0",
+    "http-parser-js": "^0.5.3",
     "md-gum-polyfill": "^1.0.0",
     "quasar": "^1.0.0"
   },

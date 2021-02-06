@@ -3,12 +3,14 @@
     <div class="row q-col-gutter-lg">
       <div class="col-12 col-sm-8">
         <template v-if="!loadingPosts && posts.length">
-          <q-card
+          <q-card 
+            v-ripple
             v-for="post in posts"
             :key="post.id"
-            class="card-post q-mb-md"
+            class="card-post q-mb-md q-hoverable"
             flat
             bordered
+            @click.native="onClick(post.url)"
           >
             <q-item>
               <q-item-section avatar>
@@ -18,19 +20,19 @@
               </q-item-section>
 
               <q-item-section>
-                <q-item-label class="text-bold">mylène__V</q-item-label>
+                <q-item-label class="text-bold">{{ post.title }}</q-item-label>
                 <q-item-label caption>
-                  {{ post.location }}
+                  {{ post.blog_entity.name }}
                 </q-item-label>
               </q-item-section>
             </q-item>
 
             <q-separator />
 
-            <q-img :src="post.imageUrl" />
+            <q-img :src="post.featured_image_url" />
 
             <q-card-section>
-              <div>{{ post.caption }}</div>
+              <div>{{ post.description }}</div>
               <div class="text-caption text-grey">
                 {{ post.date | niceDate }}
               </div>
@@ -73,28 +75,15 @@
         </template>
       </div>
 
-      <div class="col-4 large-screen-only">
-        <q-item class="fixed">
-          <q-item-section avatar>
-            <q-avatar size="48px">
-              <img src="https://cdn.quasar.dev/img/boy-avatar.png" />
-            </q-avatar>
-          </q-item-section>
-
-          <q-item-section>
-            <q-item-label class="text-bold">mylène__V</q-item-label>
-            <q-item-label caption>
-              Mylène Vandaële
-            </q-item-label>
-          </q-item-section>
-        </q-item>
-      </div>
+      
     </div>
   </q-page>
 </template>
 
 <script>
-import { date } from "quasar";
+import { date } from 'quasar'
+import { openURL } from 'quasar'
+
 
 export default {
   name: "PageHome",
@@ -105,10 +94,18 @@ export default {
     };
   },
   methods: {
+    onClick: function (link) {
+      openURL(link)
+    },
     getPosts() {
       this.loadingPosts = true;
       this.$axios
-        .get(`${ process.env.API }/posts`)
+        .get('https://agile-springs-66116.herokuapp.com/api/v1/cities/615/posts.json', this.data, {
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        }
+        })
         .then(response => {
           this.posts = response.data;
           this.loadingPosts = false;
