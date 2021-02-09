@@ -6,16 +6,16 @@
           <template v-if="!loadingPosts && posts.length">
             <q-infinite-scroll @load="onLoad" :offset="250">
             <q-card v-ripple v-for="(post, index) in posts" :key="index" class="card-post q-mb-md q-hoverable" flat bordered
-              @click.native="onClick(post.url)">
+              >
               <q-item>
                 <q-item-section avatar>
                   <q-avatar>
-                    <img src="https://cdn.quasar.dev/img/boy-avatar.png" />
+                    <q-icon style="font-size: 32px;" name="article" />
                   </q-avatar>
                 </q-item-section>
 
                 <q-item-section>
-                  <q-item-label class="text-bold">{{ post.title }}</q-item-label>
+                  <q-item-label @click="onClick(post.url)" class="text-bold">{{ post.title }}</q-item-label>
                   <q-item-label caption>
                     {{ post.blog_entity.name }}
                   </q-item-label>
@@ -24,14 +24,19 @@
 
               <q-separator />
 
-              <q-img :src="post.featured_image_url" />
+              <q-img @click="onClick(post.url)" :src="post.featured_image_url" />
 
-              <q-card-section>
+              <q-card-section @click="onClick(post.url)">
                 <div>{{ post.description }}</div>
-                <div class="text-caption text-grey">
-                  {{ post.date | niceDate }}
-                </div>
+                
               </q-card-section>
+              <div class="row justify-center items-center q-gutter-lg">
+                  <facebook :url="post.url" scale="3"></facebook>
+                  <twitter :url="post.url" :title="post.title" scale="3"></twitter>
+                  <whats-app :url="post.url" :title="post.title" scale="3"></whats-app>
+                  
+                </div>
+                <br>
             </q-card>
             <template v-slot:loading>
               <div class="row justify-center q-my-md">
@@ -79,10 +84,32 @@
 <script>
   import { date } from 'quasar'
   import { openURL } from 'quasar'
+  import {
+  Facebook,
+  Twitter,
+  Linkedin,
+  Pinterest,
+  Reddit,
+  Telegram,
+  WhatsApp,
+  Email,
+  Google
+  } from "vue-socialmedia-share";
 
 
   export default {
     name: "PageHome",
+    components: {
+    Facebook,
+    Twitter,
+    Linkedin,
+    Pinterest,
+    Reddit,
+    Telegram,
+    WhatsApp,
+    Email,
+    Google
+    },
     data() {
       return {
         posts: [],

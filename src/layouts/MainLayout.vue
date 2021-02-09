@@ -2,11 +2,13 @@
   <q-layout view="lHh Lpr lFf">
     <q-header class="bg-white text-grey-10" bordered>
       <q-toolbar class="constrain">
-        <q-icon style="font-size: 32px;" name="article" />
         <q-separator vertical spaced class="large-screen-only"/>
+        <!-- <q-icon style="font-size: 32px;" name="article" /> -->
         <q-toolbar-title class="text-grand-hotel text-bold justify-center text-center">
+          <img style="height: 20px; border: 1px solid black;" src="~assets/bandeiravca.png">
            Vca News
         </q-toolbar-title>
+        <!-- <q-icon style="font-size: 32px;" name="article" /> -->
       </q-toolbar>
     </q-header>
 
