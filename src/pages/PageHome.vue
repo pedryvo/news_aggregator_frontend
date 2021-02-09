@@ -1,7 +1,8 @@
 <template>
   <q-page class="constrain q-pa-md">
     <div class="row q-col-gutter-lg">
-      <div class="col-12 col-sm-8">
+      <div class="col-12">
+        <q-pull-to-refresh @refresh="refresh">
           <template v-if="!loadingPosts && posts.length">
             <q-infinite-scroll @load="onLoad" :offset="250">
             <q-card v-ripple v-for="(post, index) in posts" :key="index" class="card-post q-mb-md q-hoverable" flat bordered
@@ -69,6 +70,7 @@
               </q-card-section>
             </q-card>
           </template>
+        </q-pull-to-refresh>
       </div>
     </div>
   </q-page>
@@ -94,7 +96,7 @@
       },
       getPosts() {
         this.loadingPosts = true;
-        this.$axios.get(`https://agile-springs-66116.herokuapp.com/api/v1/cities/615/posts.json?page=${this.page}`)
+        this.$axios.get('https://agile-springs-66116.herokuapp.com/api/v1/cities/615/posts.json')
           .then(response => {
             this.posts = response.data;
             this.loadingPosts = false;
@@ -128,6 +130,13 @@
             });
           }
         }, 2000)
+      },
+      refresh (done) {
+        setTimeout(() => {
+          this.posts = []
+          this.getPosts()
+          done()
+        }, 1000)
       }
     },
     filters: {

@@ -2,19 +2,17 @@
   <q-layout view="lHh Lpr lFf">
     <q-header class="bg-white text-grey-10" bordered>
       <q-toolbar class="constrain">
-        <q-btn flat round dense to="/camera" class="large-screen-only q-mr-sm" icon="eva-camera-outline" size="18px" />
+        <q-icon style="font-size: 32px;" name="article" />
         <q-separator vertical spaced class="large-screen-only"/>
-        <q-toolbar-title class="text-grand-hotel text-bold">
-          Quasargram
+        <q-toolbar-title class="text-grand-hotel text-bold justify-center text-center">
+           Vca News
         </q-toolbar-title>
-        <q-btn flat round dense to="/" class="large-screen-only" icon="eva-home-outline" size="18px" />
       </q-toolbar>
     </q-header>
 
-    <q-footer class="bg-white small-screen-only" bordered>
+    <q-footer class="bg-white" bordered>
       <q-tabs class="text-grey-10" active-color="primary" indicator-color="transparent">
-        <q-route-tab to="/" icon="eva-home-outline" />
-        <q-route-tab to="/camera" icon="eva-camera-outline" />
+        <q-route-tab @click="reloadPage" to="/" icon="home" />
       </q-tabs>
     </q-footer>
 
@@ -30,6 +28,11 @@ export default {
 
   data() {
     return {};
+  },
+  methods: {
+    reloadPage(){
+      window.location.reload()
+    }
   }
 };
 </script>
