@@ -159,11 +159,9 @@
         }, 2000)
       },
       refresh (done) {
-        setTimeout(() => {
-          this.posts = []
-          this.getPosts()
-          done()
-        }, 1000)
+        this.posts = []
+        this.getPosts()
+        done()
       }
     },
     filters: {
@@ -173,6 +171,7 @@
     },
     created() {
       this.getPosts();
+      this.$root.$on('refresh', this.refresh)
     }
   };
 

@@ -33,7 +33,7 @@ export default {
   },
   methods: {
     reloadPage(){
-      window.location.reload()
+      this.$root.$emit('refresh')
     }
   }
 };
